@@ -1,2 +1,2 @@
 # AzureARM
-Testing ARM Templates
+Testing ARM Templates with Microsoft
