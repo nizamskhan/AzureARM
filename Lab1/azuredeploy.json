@@ -1,0 +1,48 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "accountType": {
+            "type": "string",
+            "defaultValue": "Standard_LRS",
+            "allowedValues": [
+                "Standard_LRS",
+                "Premium_LRS",
+                "Standard_RAGRS"
+            ],
+            "metadata": {
+                "description": "SKU Type"
+            }
+        },
+        "storageAccountPrefix": {
+            "type": "string",
+            "defaultValue": "nizamkhan",
+            "metadata": {
+                "description": ""
+            }
+        }
+    },
+    "variables": {
+        "storageAccount": "[toLower( concat(parameters('storageAccountPrefix'), uniqueString(resourceGroup().id )))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[variables('storageAccount')]",
+            "apiVersion": "2015-06-15",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "displayName": "[variables('storageAccount')]"
+            },
+            "properties": {
+                "accountType": "[parameters('accountType')]"
+            }
+        }
+    ],
+    "outputs": {
+        "storageAccountName": {
+            "type": "string",
+            "value": "variables('storageAccount')]"
+        }
+    }
+}
