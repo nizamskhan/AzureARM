@@ -121,6 +121,9 @@
                 "subnetPrefix": {
                     "value": "[parameters('subnetPrefix')]"
                 },
+                "vmName": {
+                    "value": "[parameters('vmName')]"
+                },
                 "subnetName": {
                     "value": "[parameters('subnetName')]"
                 }
