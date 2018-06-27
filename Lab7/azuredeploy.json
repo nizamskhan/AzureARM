@@ -86,8 +86,39 @@
     },
     "resources": [
         {
-            
-        }
+            "name": "[parameters('vmName')]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "properties": {
+              "mode": "Incremental",
+              "parameters": {
+                "adminUsername": {
+                  "value": "[parameters('adminUsername')]"
+                },
+                "adminPassword": {
+                  "reference": {
+                    "keyVault": {
+                      "id": "[resourceId('keyVaults', 'Microsoft.KeyVault/vaults', parameters('keyVaultName') )]"
+                    },
+                    "secretName": "[parameters('secretName')]"
+                  }
+                },
+                "dnsLabelPrefix": {
+                    "value": "[parameters('dnsLabelPrefix')]"
+                },
+                "vnetName": {
+                    "value": "[parameters('vnetName')]"
+                },
+                "subnetName": {
+                    "value": "[parameters('subnetName')]"
+                }
+              },
+              "templateLink": {
+                "uri": "[variables('DerivedVmUrl')]",
+                "contentVersion": "1.0.0.0"
+              }
+            }
+          }
     ],
     "outputs": {}
 }
